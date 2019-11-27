@@ -1,0 +1,11 @@
+soundfile
+scipy
+IPython
+celluloid
+keras
+matplotlib
+pyroomacoustics
+numpy
+librosa
+tqdm
+pandas

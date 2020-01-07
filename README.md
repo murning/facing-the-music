@@ -8,6 +8,9 @@ thesis for my BscEng in Electrical & Computer Engineering. All research
 performed in this project is reproducible through the [explanatory notebooks](./notebooks/)
  
 
+Video Demo
+---------------
+Click on the image below to be redirected to a demonstration video of the project. 
 [![](http://img.youtube.com/vi/xl86-_YQZdM/0.jpg)](http://www.youtube.com/watch?v=xl86-_YQZdM "Video Demonstration")
 
 ## Table of Contents

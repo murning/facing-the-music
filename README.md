@@ -4,10 +4,12 @@ Facing The Music
 ## Binaural Sound Source Localisation Using Machine Learning
 
 This repository serves to document the work undertaken in my undergraduate
-thesis project. This work was undertaken in the final 3 months of my BscEng in
-Electrical & Computer Engineering. 
+thesis for my BscEng in Electrical & Computer Engineering. All research
+performed in this project is reproducible through the explanatory notebooks
+LINK. The project entails a software and a hardware component. 
 
 
+[Hardware]()
 
 ## Table of Contents
 

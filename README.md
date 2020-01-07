@@ -1,7 +1,16 @@
 Facing The Music
 ==============================
 
-Binaural Sound Source Localisation Using Machine Learning
+## Binaural Sound Source Localisation Using Machine Learning
+
+This repository serves to document the work undertaken in my undergraduate
+thesis project. This work was undertaken in the final 3 months of my BscEng in
+Electrical & Computer Engineering. 
+
+
+
+## Table of Contents
+
 
 Project Organization
 ------------
@@ -44,7 +53,7 @@ Project Organization
     │   │   
     │   │
     │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       
+    │   
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.testrun.org
 

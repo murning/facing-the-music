@@ -1,4 +1,4 @@
-facing the music
+Facing The Music
 ==============================
 
 Binaural Sound Source Localisation Using Machine Learning

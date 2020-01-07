@@ -9,7 +9,7 @@ performed in this project is reproducible through the explanatory notebooks
 LINK. The project entails a software and a hardware component. 
 
 
-![Hardware](https://github.com/murning/facing-the-music/blob/master/images/hardwarefull.jpg)
+[//]: # (![Hardware](https://github.com/murning/facing-the-music/blob/master/images/hardwarefull.jpg))
 
 ## Table of Contents
 

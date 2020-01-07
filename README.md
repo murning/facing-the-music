@@ -11,7 +11,7 @@ performed in this project is reproducible through the [explanatory notebooks](./
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=xl86-_YQZdM
 " target="_blank"><img src="http://img.youtube.com/vi/xl86-_YQZdM/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+alt="IMAGE ALT TEXT HERE" width="300"  /></a>
 
 ## Table of Contents
 

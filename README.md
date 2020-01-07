@@ -6,7 +6,7 @@ Facing The Music
 This repository serves to document the work undertaken in my undergraduate
 thesis for my BscEng in Electrical & Computer Engineering. All research
 performed in this project is reproducible through the explanatory notebooks
-LINK. The project entails a software and a hardware component. 
+LINK. 
 
 picture here?
 

@@ -13,6 +13,28 @@ LINK. The project entails a software and a hardware component.
 
 ## Table of Contents
 
+Abstract
+--------------
+
+This work intends to document the implementation of a binaural sound source localisation
+system using machine learning, with ultimate ends of deployment on a rotating robotic
+platform. The goal in this project was to use machine learning to perform sound source
+localisation that is robust to both noise and reverberation. Design and implementation
+of this system was a multi-layered process. A data synthesis methodology was designed
+and implemented. This method was used to generate large synthetic datasets for use in
+machine learning. Classical signal processing techniques were used to act as a comparative
+baseline for the machine learning techniques utilized herein. Three deep learning models
+were designed, trained and evaluated. These were used in conjunction with a rotation
+algorithm implemented on the recording apparatus. The use of a rotation algorithm,
+in which predictions are updated with each movement, allows 360 ◦ localisation to take
+place. Experimentation showed that even though a useful model of binaural sound
+source localisation was developed, its performance with respect to noise and reverberation
+rejection did not show a significant improvement upon the existing signal processing
+method. This being said, the deep learning model was successfully deployed on a hardware
+system and was able to perform direction of arrival estimation with promising accuracy
+in a controlled environment. This work presents a starting point for further research in
+pursuit of a robust, end-to-end, data-driven solution to binaural sound source localisation.
+
 
 Project Organization
 ------------

@@ -84,6 +84,6 @@ jupyter notebook
 
 Note that synthesizing the dataset is rather computationally expensive. If you plan to synthesize a dataset of 50000+ points you will need a lot of ram and as many cores as you can get your hands on. I used a GCP instance with 12 cores and 60gb of ram.
 
-If you wish to explore the hardware design, please see the *Design* chapter in my ![thesis](./report/)
+If you wish to explore the hardware design, please see the *Design* chapter in my ![thesis](./report/undergraduate_thesis_kevin_murning.pdf)
 
 

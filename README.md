@@ -59,8 +59,6 @@ in a controlled environment.
 
 This work presents a starting point for further research in pursuit of a robust, end-to-end, data-driven solution to binaural sound source localisation.
 
-A simulation of the system at work is shown in the gif below
-
 <p align="center">
   <img src=./images/rotating.gif width="512" height="512">
 </p>

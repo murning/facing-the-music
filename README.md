@@ -9,10 +9,12 @@ performed in this project is reproducible through the [explanatory notebooks](./
 
 Video Demo
 ---------------
-Click on the image below to be redirected to a demonstration video of the project. 
+
 <p align="center">
   <img src=./images/demo.gif>
 </p>
+
+A full video demo of the project can be viewed here https://youtu.be/xl86-_YQZdM?t=185
  
 
 Abstract

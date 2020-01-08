@@ -66,53 +66,13 @@ This work presents a starting point for further research in pursuit of a robust,
 Getting Started
 --------------------
 
-If you wish to explore the work of this project, clone this repository and..
+If you wish to explore the work of this project, have a look throught the jupyter notebook Facing the Music.
+If you would like to play around and explore the code and simulations, you can run the jupyter notebook on your own 
+machine as follows. 
 
-Project Organization
-------------
+```
+git clone https://github.com/murning/facing-the-music && cd facing-the-music
+jupyter notebook
+```
 
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models
-    │
-    ├── notebooks          <- Jupyter notebooks 
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── report             <- Undergraduate Thesis pdf
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download and generate data
-    │   │   
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │                     predictions
-    │   │   
-    │   │   
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │   
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.testrun.org
-
-
---------
 

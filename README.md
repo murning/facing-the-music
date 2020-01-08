@@ -66,7 +66,14 @@ This work presents a starting point for further research in pursuit of a robust,
 Getting Started
 --------------------
 
-If you wish to explore the work of this project, have a look throught the jupyter notebook Facing the Music.
+If you wish to explore the work of this project, have a look throught the jupyter notebook Facing the Music. This notebook
+walks through the logic of the system through the following steps:
+
+* Data Synthesis
+* Data Preprocessing
+* Training
+* Simulation
+
 If you would like to play around and explore the code and simulations, you can run the jupyter notebook on your own 
 machine as follows. 
 
@@ -74,5 +81,7 @@ machine as follows.
 git clone https://github.com/murning/facing-the-music && cd facing-the-music
 jupyter notebook
 ```
+
+Note that synthesizing the dataset is rather computationally expensive. If you plan to synthesize a dataset of 50000+ points you will need a lot of ram and as many cores as you can get your hands on. I used a GCP instance with 12 cores and 60gb of ram.
 
 

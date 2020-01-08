@@ -6,17 +6,16 @@ Facing The Music
 This repository serves to document the work undertaken in my undergraduate
 thesis for my BscEng in Electrical & Computer Engineering. All research
 performed in this project is reproducible through the [explanatory notebooks](./notebooks/)
- 
-<p align="center">
-  <img src=./images/rotating.gif width="512" height="512">
-</p>
 
 Video Demo
 ---------------
-Click on the image below to be redirected to a demonstration video of the project. 
-[![](http://img.youtube.com/vi/xl86-_YQZdM/0.jpg)](http://www.youtube.com/watch?v=xl86-_YQZdM "Video Demonstration")
 
-## Table of Contents
+<p align="center">
+  <img src=./images/demo.gif>
+</p>
+
+A full video demo of the project can be viewed here https://youtu.be/xl86-_YQZdM?t=185
+ 
 
 Abstract
 --------------
@@ -39,6 +38,11 @@ method. This being said, the deep learning model was successfully deployed on a 
 system and was able to perform direction of arrival estimation with promising accuracy
 in a controlled environment. This work presents a starting point for further research in
 pursuit of a robust, end-to-end, data-driven solution to binaural sound source localisation.
+
+<p align="center">
+  <img src=./images/rotating.gif width="512" height="512">
+</p>
+
 
 
 Project Organization

@@ -63,7 +63,10 @@ This work presents a starting point for further research in pursuit of a robust,
   <img src=./images/rotating.gif width="512" height="512">
 </p>
 
+Getting Started
+--------------------
 
+If you wish to explore the work of this project, clone this repository and..
 
 Project Organization
 ------------

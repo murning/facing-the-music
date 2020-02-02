@@ -23,7 +23,7 @@ Video Demo
   <img src=./images/demo.gif>
 </p>
 
-A full video demo of the project can be viewed here https://youtu.be/xl86-_YQZdM?t=185
+A full video demo of the project can be viewed [here](https://youtu.be/xl86-_YQZdM?t=185)
  
 
 About
@@ -79,8 +79,9 @@ machine as follows.
 
 ```
 git clone https://github.com/murning/facing-the-music && cd facing-the-music
-conda create --name <env> --file requirements.txt
-conda activate
+python3 -m venv env
+source env/bin/activate
+pip install -r requirements.txt
 jupyter notebook
 ```
 

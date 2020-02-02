@@ -14,7 +14,7 @@ The following research question was proposed:
 * Furthermore, can the deployment of this system on a rotating robotic platform improve localisation accuracy?
 
 
-The final deliverable of this project was a robotic system that was capable of locating a sound source and rotating to face it. All research performed in this project is reproducible through the [explanatory notebooks](./src/notebooks/).
+The final deliverable of this project was a robotic system that was capable of locating a sound source and rotating to face it. All research performed in this project is reproducible through the [explanatory notebooks](./src/notebooks/Facing The Music.ipynb).
 
 Video Demo
 ---------------
@@ -82,7 +82,7 @@ git clone https://github.com/murning/facing-the-music && cd facing-the-music
 python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
-jupyter notebook
+jupyter notebook ./src/notebooks/Facing The Music.ipynb
 ```
 
 Note that synthesizing the dataset is rather computationally expensive. If you plan to synthesize a dataset of 50000+ points you will need a lot of ram and as many cores as you can get your hands on. I used a GCP instance with 12 cores and 60gb of ram.

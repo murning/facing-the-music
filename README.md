@@ -79,9 +79,7 @@ machine as follows.
 
 ```
 git clone https://github.com/murning/facing-the-music && cd facing-the-music
-python3 -m venv env
 source env/bin/activate
-pip install -r requirements.txt
 jupyter notebook ./src/notebooks/Facing The Music.ipynb
 ```
 

@@ -14,7 +14,7 @@ The following research question was proposed:
 * Furthermore, can the deployment of this system on a rotating robotic platform improve localisation accuracy?
 
 
-The final deliverable of this project was a robotic system that was capable of locating a sound source and rotating to face it. All research performed in this project is reproducible through the ![explanatory notebooks](./src/notebooks/Facing The Music.ipynb).
+The final deliverable of this project was a robotic system that was capable of locating a sound source and rotating to face it. All research performed in this project is reproducible through the [explanatory notebooks](./src/notebooks/).
 
 Video Demo
 ---------------

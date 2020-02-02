@@ -79,6 +79,8 @@ machine as follows.
 
 ```
 git clone https://github.com/murning/facing-the-music && cd facing-the-music
+conda create --name <env> --file requirements.txt
+conda activate
 jupyter notebook
 ```
 

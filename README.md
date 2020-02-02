@@ -23,7 +23,7 @@ Video Demo
   <img src=./images/demo.gif>
 </p>
 
-A full video demo of the project can be viewed here https://youtu.be/xl86-_YQZdM?t=185
+A full video demo of the project can be viewed [here](https://youtu.be/xl86-_YQZdM?t=185)
  
 
 About

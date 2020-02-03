@@ -79,7 +79,8 @@ machine as follows.
 
 ```
 git clone https://github.com/murning/facing-the-music && cd facing-the-music
-source env/bin/activate
+conda env create -n facing-the-music -f=facing-the-music.yml
+conda activate facing-the-music
 jupyter notebook ./src/notebooks/Facing The Music.ipynb
 ```
 

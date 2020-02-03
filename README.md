@@ -37,7 +37,47 @@ platform. This was undertaken as a proof of concept for an auditory perception s
 
 To train a network for binaural sound source localisation, a dataset of stereo audio recordings with direction of arrival labels was required. Unfortunately to the best of my knowledge no such dataset exists. There are a number of datasets that utilize a dummy head such as the [KEMAR](https://www.gras.dk/products/head-torso-simulators-kemar/product/733-45bb), but these are intentionally recorded to represent the acoustic properties of the human torso and head. Furthermore, the existing datasets were reletively small (< 500 data points), and thus in order to train deep NNs effectively, a larger dataset was required. 
 
+To navigate this obstacle, a large dataset of labelled, stereo wav files were synthesized using the [Image Source Method](https://jontalle.web.engr.illinois.edu/uploads/537/Papers/Public/Allen/AllenBerkley79.pdf). The implementation of this method was provided by the excellent [pyroomacoustics](https://pyroomacoustics.readthedocs.io/en/pypi-release/), a python package for room acoustics simulation.
 
+I wrote a class that creates an artificial room and binaural microphone configuration. A mono audio recording from the Google Speech Commands dataset is then placed in the room in a specified position, arriving at the microphones with a specified direction of arrival. A stereo waveform is then generated with the spatial information imparted on the original mono recording. Thus with the setero file, the direction of arrival of the sound can be easily percieved. An audio demo of this is included in the [explanatory notebook](./src/notebooks/).
+
+The code to synthesize a single data point is shown below: 
+
+In this instance we have:
+  - 4x4x4 meter room
+  - reflection order of 17
+  - microphone height of 2m
+  - microphone centre of (x=2,y=2)
+  - inter microphone distance of 0.2m 
+  - a source azimuth of 70 degrees
+  - an SNR of 0
+  - an RT60 of 1 second (this corresponds to the reverb time of the room)
+
+```
+# Select an arbitrary data point from the Google Speech Commands dataset
+source = data_generator_lib.get_data(1)[5] 
+
+# Set up constant parameters for the room 
+room = Binaural(room_dim=np.r_[4., 4., 4.],
+             max_order=17,
+             speed_of_sound=343,
+             inter_aural_distance=0.2,
+             mic_height=2)
+
+# Synthesize a stereo wav file with a direction of arrival of 70 degrees
+room.generate_impulse_pair(source_azimuth_degrees=70,
+                           source_distance_from_room_centre=1,
+                           SNR=0,
+                           RT60=1,
+                           mic_centre=np.array([2, 2]),
+                           mic_rotation_degrees=0,
+                           fs=source.fs,
+                           source_signal=source.data,
+                           plot_room=True,
+                           plot_impulse=False,
+                           write_wav=True,
+                           wav_name="demo_stereo_wav")
+```
 
 
 ### Design and implementation

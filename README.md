@@ -87,6 +87,19 @@ serves to represent the front of the microphone configuration (googly eyes).
 </p>
 
 
+This data synthesis system allows for a number of degrees of freedom in
+synthesizing a dataset. The final dataset used for training had over 300 000
+data points varying in: 
+- room size
+- microphone position 
+- source position
+- mono audio source 
+- signal to noise ratio
+- reverb time
+
+Synthesising such a large dataset is very computationally expensive. A parallel
+implementation of the above code was created using python multiprocessing. This
+was run on a GCP instance with 12 cores and 60GB of RAM. 
 
 ### Design and implementation
 

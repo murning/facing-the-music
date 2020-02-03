@@ -31,7 +31,14 @@ About
 
 The goal of this project was the implementation of a binaural sound source localisation
 system using machine learning, with ultimate ends of deployment on a rotating robotic
-platform. 
+platform. This was undertaken as a proof of concept for an auditory perception system in a search and rescue robot. 
+
+### Data
+
+To train a network for binaural sound source localisation, a dataset of stereo audio recordings with direction of arrival labels was required. Unfortunately to the best of my knowledge no such dataset exists. There are a number of datasets that utilize a dummy head such as the [KEMAR](https://www.gras.dk/products/head-torso-simulators-kemar/product/733-45bb), but these are intentionally recorded to represent the acoustic properties of the human torso and head. Furthermore, the existing datasets were reletively small (< 500 data points), and thus in order to train deep NNs effectively, a larger dataset was required. 
+
+
+
 
 ### Design and implementation
 

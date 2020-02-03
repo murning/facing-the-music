@@ -14,7 +14,7 @@ The following research question was proposed:
 * Furthermore, can the deployment of this system on a rotating robotic platform improve localisation accuracy?
 
 
-The final deliverable of this project was a robotic system that was capable of locating a sound source and rotating to face it. 
+The final deliverable of this project was a robotic system that was capable of locating a sound source and rotating to face it. All the models were run in real time on a Raspberry Pi 3 B+. 
 
 Video Demo
 ---------------
@@ -71,7 +71,6 @@ walks through the logic of the system through the following steps:
 
 * Data Synthesis
 * Data Preprocessing
-* Training
 * Simulation
 
 If you would like to play around and explore the code and simulations, you can run the jupyter notebook on your own 

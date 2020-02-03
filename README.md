@@ -57,7 +57,7 @@ In this instance we have:
 # Select an arbitrary data point from the Google Speech Commands dataset
 source = data_generator_lib.get_data(1)[5] 
 
-# Set up constant parameters for the room 
+# Set up constant parameters for the room
 room = Binaural(room_dim=np.r_[4., 4., 4.],
              max_order=17,
              speed_of_sound=343,
@@ -78,6 +78,14 @@ room.generate_impulse_pair(source_azimuth_degrees=70,
                            write_wav=True,
                            wav_name="demo_stereo_wav")
 ```
+
+This code will generate a plot of the room configuration shown below. The yellow
+dot is the mono audio source and the red dots are the microphones. The triangle
+serves to represent the front of the microphone configuration (googly eyes).
+<p align="center">
+  <img src=./images/70_degree_room_config.png>
+</p>
+
 
 
 ### Design and implementation

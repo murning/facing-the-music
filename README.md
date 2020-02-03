@@ -97,7 +97,7 @@ data points varying in:
 - signal to noise ratio
 - reverb time
 
-Synthesising such a large dataset is very computationally expensive. A parallel
+Synthesizing such a large dataset is very computationally expensive. A parallel
 implementation of the above code was created using python multiprocessing. This
 was run on a GCP instance with 12 cores and 60GB of RAM. 
 

@@ -80,7 +80,7 @@ machine as follows.
 git clone https://github.com/murning/facing-the-music && cd facing-the-music
 conda env create -n facing-the-music -f=facing-the-music.yml
 conda activate facing-the-music
-jupyter notebook ./src/notebooks/Facing The Music.ipynb
+jupyter notebook ./src/notebooks/Facing\ The\ Music.ipynb
 ```
 
 Note that synthesizing the dataset is rather computationally expensive. If you plan to synthesize a dataset of 50000+ points you will need a lot of ram and as many cores as you can get your hands on. I used a GCP instance with 12 cores and 60gb of ram.

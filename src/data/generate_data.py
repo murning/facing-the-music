@@ -6,8 +6,20 @@ from custom_timer import Timer
 import data_generator_lib
 from tqdm import tqdm
 
-
+# Set up status bar
 pbar = tqdm(total=388800)
+
+# Configure degrees of freedom in dataset synthesis
+source_azimuth_list = np.arange(0, 360, 5)
+RT60_list =  [0.3, 0.5, 0.7]
+SNR_list = [-20]
+source_distance_from_room_centre_list =  [0.5, 1, 1.5]
+mic_rotation_list =  [45, 135, 225, 315]
+mic_centre_list = [np.array([1.5, 1.5]),
+                   np.array([0.5, 0.5]),
+                   np.array([2.5, 0.5]),
+                   np.array([0.5, 2.5]),
+                   np.array([2.5, 2.5])]
 
 def progress(x):
     pbar.update()
@@ -39,16 +51,12 @@ if __name__ == "__main__":
                                         "wav_data"),
                                     callback=progress)
                    for data_point_x in data_generator_lib.get_data(subset_size=1)
-                   for source_azimuth_x in np.arange(0, 360, 5)
-                   for RT60 in [0.3, 0.5, 0.7]
-                   for SNR in [-20]
-                   for source_distance_from_room_centre in [0.5, 1, 1.5]
-                   for mic_rotation in [45, 135, 225, 315]
-                   for mic_centre in [np.array([1.5, 1.5]),
-                                      np.array([0.5, 0.5]),
-                                      np.array([2.5, 0.5]),
-                                      np.array([0.5, 2.5]),
-                                      np.array([2.5, 2.5])]]
+                   for source_azimuth_x in source_azimuth_list
+                   for RT60 in RT60_list 
+                   for SNR in SNR_list 
+                   for source_distance_from_room_centre in source_distance_from_room_centre_list 
+                   for mic_rotation in mic_rotation_list 
+                   for mic_centre in mic_centre_list]
 
         output = [p.get() for p in results]
 

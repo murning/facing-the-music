@@ -4,6 +4,8 @@ Facing The Music
 ## Binaural Sound Source Localisation Using Machine Learning
 
 This repository serves to document my undergraduate thesis for a BscEng in Electrical & Computer Engineering at the University of Cape Town. 
+The goal of this project was to develop a binaural sound source localisation
+system using machine learning. This was undertaken as a proof of concept for an auditory perception system in a search and rescue robot. 
 
 The following research question was proposed: 
 
@@ -31,9 +33,21 @@ A full video demo of the project can be viewed [here](https://youtu.be/xl86-_YQZ
 About
 --------------
 
-The goal of this project was the implementation of a binaural sound source localisation
-system using machine learning, with ultimate ends of deployment on a rotating robotic
-platform. This was undertaken as a proof of concept for an auditory perception system in a search and rescue robot. 
+The following sections serve to provide a brief overview of the design process
+of the project as well as an introduction to the code base used.
+
+#### Overview 
+
+* A data synthesis methodology was designed and implemented. This method was used to generate large synthetic datasets for use    in machine learning. 
+* Classical signal processing techniques were used to act as a comparative
+  baseline for the machine learning techniques utilized herein.
+* Three deep learning models were designed, trained and evaluated. 
+* A rotation algorithm was devised in which predictions were updated with each movement, allowing 360 ◦ localisation to take
+  place. 
+* The full localisation model was tested in simulation and then deployed in a
+  real world environment.
+* The system was thoroughly evaluated in a number of real world scenarios
+
 
 ### Data
 
@@ -169,7 +183,8 @@ GCC-PHAT: 45 degrees           |  GCC-PHAT 315 degrees
 It is evident from the graphs that the peaks occur at the same sample delay for
 the two different directions of arrival. Thus when estimating the direction of
 arrival from the cross correlation peaks, both result in 45 degrees. The
-implementation of this computation can be viewed [here](./src/models/gccphat.py)
+implementation of this computation can be viewed
+[here](./src/models/gccphat.py). 
 
 
 This is an effect that is experienced to some degree in the human auditory
@@ -217,7 +232,7 @@ determined. In this instance, the model correctly predicts the direction of arri
 
 ## Models
 
-Multiple models were prototyped and tested. The best performing model used the
+Multiple models were prototyped and tested. The best performing model was CNN that used the
 generalised cross-correlation between the two audio channels as the input
 feature representation. This data preprocessing pipeline is shown below.
 
@@ -232,23 +247,37 @@ pipeline in full:
   <img src=./images/pipeline.png>
 </p>
 
-The deep learning model used was a very deep CNN with the following architecture
+The deep learning model used the following architecture
 
 <p align="center">
   <img src=./images/gcccnnarchitecture.png width="350" >
 </p>
 
+The GCC-PHAT method of estimating DOA from time delay was used as a comparative
+baseline when evaluating the deep learning models.
 
-### Design and implementation
 
-* A data synthesis methodology was designed and implemented. This method was used to generate large synthetic datasets for use    in machine learning. 
-* Classical signal processing techniques were used to act as a comparative
-  baseline for the machine learning techniques utilized herein.
-* Three deep learning models were designed, trained and evaluated. 
-* These models were used in conjunction with a rotation
-  algorithm implemented on the recording apparatus. The use of a rotation algorithm,
-  in which predictions are updated with each movement, allows 360 ◦ localisation to take
-  place. 
+## Hardware
+
+
+The rotation algorithm and the various models were implemented on a Raspberry Pi
+3 B+. Two microphones and a stepper motor were housed in a 3D printed case, the
+design of which is shown in the image below: 
+<p align="center">
+    <img src=./images/hardwaredesign.png width="350" >
+</p>
+
+
+This housing is connected to the raspberry pi via a ribbon cable. An Apogee Duet
+audio interface was used to record audio from the microphones. Detailed
+instructions to replicate this hardware, including schematics, are included in
+my thesis document.
+
+Hardware Integration |  Microphones and stepper motor in housing | Full System |
+:-------------------------:|:-------------------------:|:-------------------------:|
+![](./images/hardware_connec.jpg)  |  ![](./images/hardware_integration.jpg)| ![](./images/hardwarefull.jpg) |
+
+
 
 ### Findings
 

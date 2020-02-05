@@ -16,6 +16,8 @@ The following research question was proposed:
 
 The final deliverable of this project was a robotic system that was capable of locating a sound source and rotating to face it. All the models were run in real time on a Raspberry Pi 3 B+. 
 
+Comprehensive documentation for this project can be found in my undergraduate ![thesis](./report/undergraduate_thesis_kevin_murning.pdf)
+
 Video Demo
 ---------------
 
@@ -97,9 +99,145 @@ data points varying in:
 - signal to noise ratio
 - reverb time
 
-Synthesizing such a large dataset is very computationally expensive. A parallel
+Some example room configurations are shown below: 
+
+Direction of Arrival: 350 degrees           |  Direction of Arrival: 120 degrees
+:-------------------------:|:-------------------------:
+![](./images/room_145.png)  |  ![](./images/room_120.png)
+
+Synthesising such a large dataset is very computationally expensive. A parallel
 implementation of the above code was created using python multiprocessing. This
-was run on a GCP instance with 12 cores and 60GB of RAM. 
+was run on a GCP instance with 12 cores and 60GB of RAM. The script used to run
+the data synthesis can be viewed [here](./src/data/generate_data.py). To
+synthesize a dataset of any size, configure the degrees of freedom in
+`generate_data.py` and then run the script. For example:
+
+``` python
+# Configure degrees of freedom in dataset synthesis
+source_azimuth_list = np.arange(0, 360, 5)
+RT60_list =  [0.3, 0.5, 0.7]
+SNR_list = [-20]
+source_distance_from_room_centre_list =  [0.5, 1, 1.5]
+mic_rotation_list =  [45, 135, 225, 315]
+mic_centre_list = [np.array([1.5, 1.5]),
+                   np.array([0.5, 0.5]),
+                   np.array([2.5, 0.5]),
+                   np.array([0.5, 2.5]),
+                   np.array([2.5, 2.5])]
+
+```
+
+and then run: 
+
+``` shell
+python generate_data.py
+```
+
+
+### Front Back Labelling and the Cone of Confusion
+
+#### Cone of Confusion
+
+An interesting problem encountered in the case of a binaural microphone
+configuration is the inherent ambiguity between the front and the back of the
+listener. The time domain information received at each microphone does not allow
+us to distinguish between a sound arriving from 70 degrees and -70 degrees as
+illustrated below: 
+
+<p align="center">
+  <img src=./images/frontbackconfusion.png width="350">
+</p>
+
+
+To illustrate this, consider the following two room configurations: 
+
+Direction of Arrival: 45 degrees           |  Direction of Arrival: 315 degrees
+:-------------------------:|:-------------------------:
+![](./images/room_45.png)  |  ![](./images/room_315.png)
+
+
+The direction of arrival can be computed by estimating
+the time delay between each channel of the recorded signal. We can do this by
+finding the peak of the cross correlation between the two signals. The cross
+correlation technique used is the generalised cross-correlation with phase
+transform. This is a cross correlation with a weighting function as proposed by ...
+
+GCC-PHAT: 45 degrees           |  GCC-PHAT 315 degrees
+:-------------------------:|:-------------------------:
+![](./images/doa_45_gcc.png)  |  ![](./images/doa_315.png)
+
+It is evident from the graphs that the peaks occur at the same sample delay for
+the two different directions of arrival. Thus when estimating the direction of
+arrival from the cross correlation peaks, both result in 45 degrees. The
+implementation of this computation can be viewed [here](./src/models/gccphat.py)
+
+
+This is an effect that is experienced to some degree in the human auditory
+system and is often referred to as the "cone of confusion". We have developed a number
+of novel ways of dealing with this issue, one of which being subtle head
+movements that aid in the process of localisation. Taking inspiration from this
+biological phenomenon, this system utilizes a rotation algorithm in conjunction
+with a series of predictions to mitigate front back ambiguity. 
+
+#### Front Back Labelling
+
+For the purpose of training networks, during data synthesis each direction of arrival was labelled
+with the two possible directions that could arise as a result of the
+front-back confusions. For example, a data point that has a direction of arrival
+of 45 degrees would be labelled as 45 degrees and 315 degrees. This labelling
+technique in conjunction with a rotation algorithm and successive
+predictions allows for a probability for each possible direction to be
+determined. Thus the direction with the highest probability is determined as the
+true direction of arrival.
+
+After data synthesis the file names and their associated directions of arrival
+are stored in a file called `data_labels.csv`.
+
+## Rotations
+
+An activity diagram of the rotation algorithm is shown below. This illustrates
+how successive predictions can be used to determine which of the two possible
+directions the source is emanating from. 
+
+<p align="center">
+  <img src=./images/rotationmodel_diagram.png width="500">
+</p>
+
+Using the deep learning model described in the following section, this 
+gif shows a simulation of this rotation model in action. A data point with a
+true direction of arrival of 70 degrees is synthesised and fed into the model.
+Pairs of successive predictions are then plotted until the final prediction is
+determined. In this instance, the model correctly predicts the direction of arrival.
+
+<p align="center">
+  <img src=./images/rotating.gif width="450" >
+</p>
+
+
+
+## Models
+
+Multiple models were prototyped and tested. The best performing model used the
+generalised cross-correlation between the two audio channels as the input
+feature representation. This data preprocessing pipeline is shown below.
+
+<p align="center">
+  <img src=./images/pipeline_2.png> 
+</p>
+
+The following block diagram describes the direction of arrival estimation
+pipeline in full:
+
+<p align="center">
+  <img src=./images/pipeline.png>
+</p>
+
+The deep learning model used was a very deep CNN with the following architecture
+
+<p align="center">
+  <img src=./images/gcccnnarchitecture.png width="350" >
+</p>
+
 
 ### Design and implementation
 
@@ -127,9 +265,6 @@ in a controlled environment.
 
 This work presents a starting point for further research in pursuit of a robust, end-to-end, data-driven solution to binaural sound source localisation.
 
-<p align="center">
-  <img src=./images/rotating.gif width="512" height="512">
-</p>
 
 Getting Started
 --------------------

@@ -88,3 +88,4 @@ target/
 # Mypy cache
 .mypy_cache/
 /src/notebooks/google_speech_commands/
+/README.html

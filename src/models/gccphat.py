@@ -13,7 +13,6 @@ def gcc_phat(signal, reference_signal, fs=8000, max_tau=constants.max_tau, inter
     SIGNAL = np.fft.rfft(signal, n=fft_size)
     REFERENCE_SIGNAL = np.fft.rfft(reference_signal, n=fft_size)
     R = SIGNAL * np.conj(REFERENCE_SIGNAL)
-#     cross_correlation = np.fft.irfft(R / np.abs(R), n=(interpolation * fft_size))
     cross_correlation = np.fft.irfft(np.divide(R,np.abs(R), where=np.abs(R)!=0) , n=(interpolation * fft_size))
 
     # FFT shift

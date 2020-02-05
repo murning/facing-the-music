@@ -29,35 +29,91 @@ Video Demo
 
 A full video demo of the project can be viewed [here](https://youtu.be/xl86-_YQZdM?t=185)
  
+Simulation
+---------------
+
+This gif shows a simulation of the final model in action. A data point with a
+true direction of arrival of 70 degrees is synthesised and fed into the model.
+Pairs of successive predictions are then plotted until the final prediction is
+determined. In this instance the model correctly predicts a direction of
+arrival of 70 degrees and turns to face the source.
+
+<p align="center">
+  <img src=./images/rotating.gif width="500" >
+</p>
+
+### Getting Started
+
+If you wish to explore the work of this project, have a look through the jupyter
+notebook [Facing the Music.ipynb](./src/notebooks/Facing\ The\ Music.ipynb). This notebook
+walks through the logic of the system through the following steps:
+
+* Data Synthesis
+* Data Preprocessing
+* Simulation with deep learning models
+
+If you would like to play around and explore the code and simulations, you can run the jupyter notebook on your own 
+machine as follows. 
+
+```
+git clone https://github.com/murning/facing-the-music && cd facing-the-music
+conda env create -n facing-the-music -f=facing-the-music.yml
+conda activate facing-the-music
+jupyter notebook ./src/notebooks/Facing\ The\ Music.ipynb
+```
+
+
+
 
 About
 --------------
 
 The following sections serve to provide a brief overview of the design process
-of the project as well as an introduction to the code base used.
+as well as an introduction to the code base.
 
-#### Overview 
+### Overview 
 
 * A data synthesis methodology was designed and implemented. This method was used to generate large synthetic datasets for use    in machine learning. 
 * Classical signal processing techniques were used to act as a comparative
   baseline for the machine learning techniques utilized herein.
 * Three deep learning models were designed, trained and evaluated. 
-* A rotation algorithm was devised in which predictions were updated with each movement, allowing 360 ◦ localisation to take
+* A rotation algorithm was devised in which predictions were updated with each movement, allowing 360 degree localisation to take
   place. 
 * The full localisation model was tested in simulation and then deployed in a
   real world environment.
 * The system was thoroughly evaluated in a number of real world scenarios
 
 
+
+
+
 ### Data
 
-To train a network for binaural sound source localisation, a dataset of stereo audio recordings with direction of arrival labels was required. Unfortunately to the best of my knowledge no such dataset exists. There are a number of datasets that utilize a dummy head such as the [KEMAR](https://www.gras.dk/products/head-torso-simulators-kemar/product/733-45bb), but these are intentionally recorded to represent the acoustic properties of the human torso and head. Furthermore, the existing datasets were reletively small (< 500 data points), and thus in order to train deep NNs effectively, a larger dataset was required. 
+To train a network for binaural sound source localisation, a dataset of stereo
+audio recordings with direction of arrival (DOA) labels was required. Unfortunately to
+the best of my knowledge no such dataset exists. There are a number of datasets
+that utilize a dummy head such as the
+[KEMAR](https://www.gras.dk/products/head-torso-simulators-kemar/product/733-45bb),
+but these are intentionally recorded to represent the acoustic properties of the
+human torso and head. Furthermore, the existing datasets were reletively small
+(< 500 data points), and thus in order to train deep NNs effectively, a larger
+dataset was required.
 
-To navigate this obstacle, a large dataset of labelled, stereo wav files were synthesized using the [Image Source Method](https://jontalle.web.engr.illinois.edu/uploads/537/Papers/Public/Allen/AllenBerkley79.pdf). The implementation of this method was provided by the excellent [pyroomacoustics](https://pyroomacoustics.readthedocs.io/en/pypi-release/), a python package for room acoustics simulation.
+To navigate this obstacle, a large dataset of labelled, stereo wav files was
+synthesized using the [Image Source
+Method](https://jontalle.web.engr.illinois.edu/uploads/537/Papers/Public/Allen/AllenBerkley79.pdf).
+The implementation of this method was provided by the excellent
+[pyroomacoustics](https://pyroomacoustics.readthedocs.io/en/pypi-release/), a
+python package for room acoustics simulation.
 
-I wrote a class that creates an artificial room and binaural microphone configuration. A mono audio recording from the Google Speech Commands dataset is then placed in the room in a specified position, arriving at the microphones with a specified direction of arrival. A stereo waveform is then generated with the spatial information imparted on the original mono recording. Thus with the setero file, the direction of arrival of the sound can be easily percieved. An audio demo of this is included in the [explanatory notebook](./src/notebooks/).
+I wrote a class that creates an artificial room and binaural microphone
+configuration. A mono audio recording from the Google Speech Commands dataset is
+then placed in the room in a specified position. A stereo waveform is then generated with
+the spatial information of the room and the direction of arrival of the source imparted on the original mono recording. Thus with the
+stereo file, the direction of arrival of the sound can be easily perceived. An
+audio demo of this is included in the [explanatory notebook](./src/notebooks/).
 
-The code to synthesize a single data point is shown below: 
+The code to synthesize a single data point is shown below:
 
 In this instance we have:
   - 4x4x4 meter room
@@ -170,13 +226,13 @@ Direction of Arrival: 45 degrees           |  Direction of Arrival: 315 degrees
 ![](./images/room_45.png)  |  ![](./images/room_315.png)
 
 
-The direction of arrival can be computed by estimating
+The DOA can be computed by estimating
 the time delay between each channel of the recorded signal. We can do this by
 finding the peak of the cross correlation between the two signals. The cross
 correlation technique used is the generalised cross-correlation with phase
-transform. This is a cross correlation with a weighting function as proposed by ...
+transform (GCC-PHAT). Consider the following scenario:
 
-GCC-PHAT: 45 degrees           |  GCC-PHAT 315 degrees
+GCC-PHAT: 45 degrees           |  GCC-PHAT: 315 degrees
 :-------------------------:|:-------------------------:
 ![](./images/doa_45_gcc.png)  |  ![](./images/doa_315.png)
 
@@ -188,21 +244,20 @@ implementation of this computation can be viewed
 
 
 This is an effect that is experienced to some degree in the human auditory
-system and is often referred to as the "cone of confusion". We have developed a number
-of novel ways of dealing with this issue, one of which being subtle head
+system and is often referred to as the "cone of confusion". As humans we have developed a number
+of novel ways of dealing with this issue, one of which being small head
 movements that aid in the process of localisation. Taking inspiration from this
 biological phenomenon, this system utilizes a rotation algorithm in conjunction
 with a series of predictions to mitigate front back ambiguity. 
 
 #### Front Back Labelling
 
-For the purpose of training networks, during data synthesis each direction of arrival was labelled
+For the purpose of training networks, during data synthesis each DOA was labelled
 with the two possible directions that could arise as a result of the
-front-back confusions. For example, a data point that has a direction of arrival
-of 45 degrees would be labelled as 45 degrees and 315 degrees. This labelling
+front-back confusions. For example, a data point that has a DOA of 45 degrees would be labelled as 45 degrees and 315 degrees. This labelling
 technique in conjunction with a rotation algorithm and successive
-predictions allows for a probability for each possible direction to be
-determined. Thus the direction with the highest probability is determined as the
+predictions allows for a probability for each possible DOA to be
+determined. Thus the DOA with the highest probability is determined as the
 true direction of arrival.
 
 After data synthesis the file names and their associated directions of arrival
@@ -218,23 +273,29 @@ directions the source is emanating from.
   <img src=./images/rotationmodel_diagram.png width="500">
 </p>
 
-Using the deep learning model described in the following section, this 
-gif shows a simulation of this rotation model in action. A data point with a
-true direction of arrival of 70 degrees is synthesised and fed into the model.
-Pairs of successive predictions are then plotted until the final prediction is
-determined. In this instance, the model correctly predicts the direction of arrival.
-
-<p align="center">
-  <img src=./images/rotating.gif width="450" >
-</p>
 
 
 
 ## Models
 
-Multiple models were prototyped and tested. The best performing model was CNN that used the
-generalised cross-correlation between the two audio channels as the input
-feature representation. This data preprocessing pipeline is shown below.
+Multiple models were designed. The architectures were based on the
+ones proposed in this [paper](https://arxiv.org/pdf/1610.00087.pdf). The
+following models were implemented and tested: 
+
+| Model Name | Architecture | Input Vector    |
+|------------|--------------|-----------------|
+| m11_raw    | CNN          | Raw Audio       |
+| m32        | ResNet       | Raw Audio       |
+| m11_gcc    | CNN          | GCC-PHAT Vector |
+
+
+
+The names of the models correspond to the different architectures outlined in
+the aforementioned paper. The best performing model in this use case was the m11
+CNN, but modified to use the GCC-PHAT vector as the input. The raw audio models
+did not generalise well to real world conditions. Using the
+GCC-PHAT of the two audio channels as input made the model far more robust to
+changes in environment. The data preprocessing pipeline is shown below:
 
 <p align="center">
   <img src=./images/pipeline_2.png> 
@@ -247,15 +308,26 @@ pipeline in full:
   <img src=./images/pipeline.png>
 </p>
 
-The deep learning model used the following architecture
+The m11 model used the following architecture:
 
 <p align="center">
   <img src=./images/gcccnnarchitecture.png width="350" >
 </p>
 
-The GCC-PHAT method of estimating DOA from time delay was used as a comparative
-baseline when evaluating the deep learning models.
 
+Tensorflow implementations of the models were based on code in this [repository](https://github.com/philipperemy/very-deep-convnets-raw-waveforms), and can be viewed in
+[deep_learning_models.py](./src/models/deep_learning_models.py). To train any of
+the models, run the following:
+
+``` 
+python deep_learning_models.py <model_choice> <model_name> <data_directory> <number_of_epochs>
+```
+
+For example: 
+
+``` 
+python deep_learning_models.py m11_gcc my_new_model wav_data 100 
+```
 
 ## Hardware
 
@@ -268,7 +340,7 @@ design of which is shown in the image below:
 </p>
 
 
-This housing is connected to the raspberry pi via a ribbon cable. An Apogee Duet
+This housing was connected to the raspberry pi via a ribbon cable. An Apogee Duet
 audio interface was used to record audio from the microphones. Detailed
 instructions to replicate this hardware, including schematics, are included in
 my thesis document.
@@ -279,7 +351,7 @@ Hardware Integration |  Microphones and stepper motor in housing | Full System |
 
 
 
-### Findings
+## Findings
 
 * Experimentation showed that even though a useful model of binaural sound
   source localisation was developed, its performance with respect to noise and reverberation
@@ -293,30 +365,5 @@ in a controlled environment.
 * One of the most promising findings was that the system, which was trained entirely on synthesized data, was capable of    performing robust localisation in real environments when deployed on the hardware. 
 
 This work presents a starting point for further research in pursuit of a robust, end-to-end, data-driven solution to binaural sound source localisation.
-
-
-Getting Started
---------------------
-
-If you wish to explore the work of this project, have a look throught the jupyter notebook Facing the Music. This notebook
-walks through the logic of the system through the following steps:
-
-* Data Synthesis
-* Data Preprocessing
-* Simulation
-
-If you would like to play around and explore the code and simulations, you can run the jupyter notebook on your own 
-machine as follows. 
-
-```
-git clone https://github.com/murning/facing-the-music && cd facing-the-music
-conda env create -n facing-the-music -f=facing-the-music.yml
-conda activate facing-the-music
-jupyter notebook ./src/notebooks/Facing\ The\ Music.ipynb
-```
-
-Note that synthesizing the dataset is rather computationally expensive. If you plan to synthesize a dataset of 50000+ points you will need a lot of ram and as many cores as you can get your hands on. I used a GCP instance with 12 cores and 60gb of ram.
-
-If you wish to explore the hardware design, please see the *Design* chapter in my ![thesis](./report/undergraduate_thesis_kevin_murning.pdf)
 
 

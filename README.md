@@ -18,7 +18,7 @@ The following research question was proposed:
 
 The final deliverable of this project was a robotic system that was capable of locating a sound source and rotating to face it. All the models were run in real time on a Raspberry Pi 3 B+. 
 
-Comprehensive documentation for this project can be found in my undergraduate ![thesis](./report/undergraduate_thesis_kevin_murning.pdf)
+Comprehensive documentation for this project can be found in my undergraduate ![thesis](./report/)
 
 
 
@@ -52,10 +52,29 @@ arrival of 70 degrees and turns to face the source.
   <img src=./images/rotating.gif width="500" >
 </p>
 
+Findings
+---------------
+
+* Experimentation showed that even though a useful model of binaural sound
+  source localisation was developed, its performance with respect to noise and reverberation
+rejection did not show a significant improvement upon the existing signal processing
+method. 
+
+* This being said, the deep learning model was successfully deployed on a hardware
+system and was able to perform direction of arrival estimation with promising accuracy
+in a controlled environment. 
+
+* One of the most promising findings was that the system, which was trained entirely on synthesized data, was capable of    performing robust localisation in real environments when deployed on the hardware. 
+
+This work presents a starting point for further research in pursuit of a robust, end-to-end, data-driven solution to binaural sound source localisation.
+
+
+
+
 ### Getting Started
 
 If you wish to explore the work of this project, have a look through the jupyter
-notebook [Facing the Music.ipynb](./src/notebooks/Facing\ The\ Music.ipynb). This notebook
+notebook [Facing the Music.ipynb](./src/notebooks/). This notebook
 walks through the logic of the system through the following steps:
 
 * Data Synthesis
@@ -83,15 +102,25 @@ as well as an introduction to the code base.
 
 ### Overview 
 
-* A data synthesis methodology was designed and implemented. This method was used to generate large synthetic datasets for use    in machine learning. 
-* Classical signal processing techniques were used to act as a comparative
-  baseline for the machine learning techniques utilized herein.
-* Three deep learning models were designed, trained and evaluated. 
-* A rotation algorithm was devised in which predictions were updated with each movement, allowing 360 degree localisation to take
-  place. 
-* The full localisation model was tested in simulation and then deployed in a
-  real world environment.
-* The system was thoroughly evaluated in a number of real world scenarios
+
+* A data-synthesis method was designed and implemented to generate large datasets
+  to be used for sound source localisation studies.
+
+* Three deep learning models where trained and tested using these datasets.
+
+* A signal processing method was implemented to act as a baseline with which the
+  DL models could be compared.
+
+* A rotation algorithm was concieved of to account for problems inherent in in 360 ◦
+  binaural SSL.
+
+*  A simulation program was written to evaluate the aforementioned methods in
+   software.
+   
+   
+* A hardware system was designed and built with which the models were deployed.
+
+* Comprehensive testing was performed in order to evaluate the system.
 
 
 
@@ -118,7 +147,7 @@ python package for room acoustics simulation.
 
 I wrote a class that creates an artificial room and binaural microphone
 configuration. A mono audio recording from the Google Speech Commands dataset is
-then placed in the room in a specified position. A stereo waveform is then generated with
+then "placed" in the room in a specified position. A stereo waveform is then generated with
 the spatial information of the room and the direction of arrival of the source imparted on the original mono recording. Thus with the
 stereo file, the direction of arrival of the sound can be easily perceived. An
 audio demo of this is included in the [explanatory notebook](./src/notebooks/).
@@ -165,7 +194,7 @@ This code will generate a plot of the room configuration shown below. The yellow
 dot is the mono audio source and the red dots are the microphones. The triangle
 serves to represent the front of the microphone configuration (googly eyes).
 <p align="center">
-  <img src=./images/70_degree_room_config.png>
+  <img src=./images/70_degree_room_config.png width="400">
 </p>
 
 
@@ -185,12 +214,15 @@ Direction of Arrival: 350 degrees           |  Direction of Arrival: 120 degrees
 :-------------------------:|:-------------------------:
 ![](./images/room_145.png)  |  ![](./images/room_120.png)
 
-Synthesising such a large dataset is very computationally expensive. A parallel
+Synthesising such a large dataset is very computationally expensive.
+Additionally, the dataset used in training these models is 50Gb+ in size, and
+thus was not included in this repository. A parallel
 implementation of the above code was created using python multiprocessing. This
 was run on a GCP instance with 12 cores and 60GB of RAM. The script used to run
-the data synthesis can be viewed [here](./src/data/generate_data.py). To
-synthesize a dataset of any size, configure the degrees of freedom in
-`generate_data.py` and then run the script. For example:
+the data synthesis can be viewed [here](./src/data/generate_data.py). If you
+would like to train a network using this data, you can 
+synthesize a dataset of any size by configure the degrees of freedom in
+`generate_data.py` and then running the script. For example:
 
 ``` python
 # Configure degrees of freedom in dataset synthesis
@@ -256,7 +288,7 @@ implementation of this computation can be viewed
 This is an effect that is experienced to some degree in the human auditory
 system and is often referred to as the "cone of confusion". As humans we have developed a number
 of novel ways of dealing with this issue, one of which being small head
-movements that aid in the process of localisation. Taking inspiration from this
+movements that aid the process of localisation. Taking inspiration from this
 biological phenomenon, this system utilizes a rotation algorithm in conjunction
 with a series of predictions to mitigate front back ambiguity. 
 
@@ -277,7 +309,8 @@ are stored in a file called `data_labels.csv`.
 
 An activity diagram of the rotation algorithm is shown below. This illustrates
 how successive predictions can be used to determine which of the two possible
-directions the source is emanating from. 
+directions the source is emanating from. The python implementation of this
+algorithm can be seen in [simulation.py](./src/simulation/simulation.py)
 
 <p align="center">
   <img src=./images/rotationmodel_diagram.png width="500">
@@ -318,7 +351,7 @@ pipeline in full:
   <img src=./images/pipeline.png>
 </p>
 
-The m11 model used the following architecture:
+The m11_gcc model used the following architecture:
 
 <p align="center">
   <img src=./images/gcc_architecture.png width="350" >
@@ -361,19 +394,23 @@ Hardware Integration |  Microphones and stepper motor in housing | Full System |
 
 
 
-## Findings
+## Results
 
-* Experimentation showed that even though a useful model of binaural sound
-  source localisation was developed, its performance with respect to noise and reverberation
-rejection did not show a significant improvement upon the existing signal processing
-method. 
+The results in presented in this section correspond with the tests defined in
+section 7.2.2 of my thesis. This is a small subsection of the full set of results.
+These results make use of the error circle for visualisation.
+The error circle is a way of visualising the average error of a model in the azimuth plane.
+The magnitude of the average error for each DOA is represented by it’s distance from
+the origin. As discussed at length in my thesis, it is evident that deep learning can be used to
+implement an effective binaural sound source localisation system. However, the results
+also show that in comparison to a signal processing baseline, this model does not offer a
+significant improvement in noise and reverberation robustness.
 
-* This being said, the deep learning model was successfully deployed on a hardware
-system and was able to perform direction of arrival estimation with promising accuracy
-in a controlled environment. 
+<p align="center">
+    <img src=./images/results_1.png  >
+</p>
 
-* One of the most promising findings was that the system, which was trained entirely on synthesized data, was capable of    performing robust localisation in real environments when deployed on the hardware. 
-
-This work presents a starting point for further research in pursuit of a robust, end-to-end, data-driven solution to binaural sound source localisation.
-
+<p align="center">
+    <img src=./images/results_2.png  >
+</p>
 

@@ -20,6 +20,9 @@ The final deliverable of this project was a robotic system that was capable of l
 
 Comprehensive documentation for this project can be found in my undergraduate ![thesis](./report/undergraduate_thesis_kevin_murning.pdf)
 
+
+
+
 Video Demo
 ---------------
 
@@ -28,6 +31,13 @@ Video Demo
 </p>
 
 A full video demo of the project can be viewed [here](https://youtu.be/xl86-_YQZdM?t=185)
+
+System Overview
+---------------
+<p align="center">
+  <img src=./images/facing-the-overview.png>
+</p>
+
  
 Simulation
 ---------------
@@ -311,7 +321,7 @@ pipeline in full:
 The m11 model used the following architecture:
 
 <p align="center">
-  <img src=./images/gcccnnarchitecture.png width="350" >
+  <img src=./images/gcc_architecture.png width="350" >
 </p>
 
 

@@ -52,6 +52,31 @@ arrival of 70 degrees and turns to face the source.
   <img src=./images/rotating.gif width="500" >
 </p>
 
+Overview 
+---------------
+
+* A data-synthesis method was designed and implemented to generate large datasets
+  to be used for sound source localisation studies.
+
+* Three deep learning models where trained and tested using these datasets.
+
+* A signal processing method was implemented to act as a baseline with which the
+  DL models could be compared.
+
+* A rotation algorithm was concieved of to account for problems inherent in in 360 ◦
+  binaural SSL.
+
+*  A simulation program was written to evaluate the aforementioned methods in
+   software.
+   
+   
+* A hardware system was designed and built with which the models were deployed.
+
+* Comprehensive testing was performed in order to evaluate the system.
+
+
+
+
 Findings
 ---------------
 
@@ -71,7 +96,9 @@ This work presents a starting point for further research in pursuit of a robust,
 
 
 
-### Getting Started
+Getting Started
+---------------
+
 
 If you wish to explore the work of this project, have a look through the jupyter
 notebook [Facing the Music.ipynb](./src/notebooks/). This notebook
@@ -99,29 +126,6 @@ About
 
 The following sections serve to provide a brief overview of the design process
 as well as an introduction to the code base.
-
-### Overview 
-
-
-* A data-synthesis method was designed and implemented to generate large datasets
-  to be used for sound source localisation studies.
-
-* Three deep learning models where trained and tested using these datasets.
-
-* A signal processing method was implemented to act as a baseline with which the
-  DL models could be compared.
-
-* A rotation algorithm was concieved of to account for problems inherent in in 360 ◦
-  binaural SSL.
-
-*  A simulation program was written to evaluate the aforementioned methods in
-   software.
-   
-   
-* A hardware system was designed and built with which the models were deployed.
-
-* Comprehensive testing was performed in order to evaluate the system.
-
 
 
 

@@ -63,10 +63,10 @@ Overview
 * A signal processing method was implemented to act as a baseline with which the
   DL models could be compared.
 
-* A rotation algorithm was concieved of to account for problems inherent in in 360 ◦
+* A rotation algorithm was concieved of to account for problems inherent in 360 degree
   binaural SSL.
 
-*  A simulation program was written to evaluate the aforementioned methods in
+* A simulation program was written to evaluate the aforementioned methods in
    software.
    
    
@@ -163,7 +163,7 @@ In this instance we have:
   - reflection order of 17
   - microphone height of 2m
   - microphone centre of (x=2,y=2)
-  - inter microphone distance of 0.2m 
+  - inter-microphone distance of 0.2m 
   - a source azimuth of 70 degrees
   - an SNR of 0
   - an RT60 of 1 second (this corresponds to the reverb time of the room)
@@ -250,7 +250,7 @@ python generate_data.py
 ```
 
 
-### Front Back Labelling and the Cone of Confusion
+### Front-Back Labelling and the Cone of Confusion
 
 #### Cone of Confusion
 
@@ -284,7 +284,7 @@ GCC-PHAT: 45 degrees           |  GCC-PHAT: 315 degrees
 
 It is evident from the graphs that the peaks occur at the same sample delay for
 the two different directions of arrival. Thus when estimating the direction of
-arrival from the cross correlation peaks, both result in 45 degrees. The
+arrival from the cross-correlation peaks, both result in 45 degrees. The
 implementation of this computation can be viewed
 [here](./src/models/gccphat.py). 
 
@@ -296,7 +296,7 @@ movements that aid the process of localisation. Taking inspiration from this
 biological phenomenon, this system utilizes a rotation algorithm in conjunction
 with a series of predictions to mitigate front back ambiguity. 
 
-#### Front Back Labelling
+#### Front-Back Labelling
 
 For the purpose of training networks, during data synthesis each DOA was labelled
 with the two possible directions that could arise as a result of the

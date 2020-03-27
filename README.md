@@ -3,7 +3,7 @@ Facing The Music
 
 ## Binaural Sound Source Localisation Using Machine Learning
 
-This repository serves to document my undergraduate thesis for a BscEng in Electrical & Computer Engineering at the University of Cape Town. 
+This repository serves to document my undergraduate thesis for a BSc in Electrical & Computer Engineering at the University of Cape Town. 
 The goal of this project was to develop a binaural sound source localisation
 system using machine learning. This was undertaken as a proof of concept for an auditory perception system in a search and rescue robot. 
 

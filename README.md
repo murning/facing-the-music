@@ -156,7 +156,7 @@ the spatial information of the room and the direction of arrival of the source i
 stereo file, the direction of arrival of the sound can be easily perceived. An
 audio demo of this is included in the [explanatory notebook](./src/notebooks/).
 
-The code to synthesize a single data point is shown below:
+Example code to synthesize a single data point is shown below:
 
 In this instance we have:
   - 4x4x4 meter room

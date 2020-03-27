@@ -95,7 +95,7 @@ class Binaural:
             self.plot_room(mic_position=self.mic_position(mic_centre, mic_rotation_degrees), mic_centre=mic_centre,
                            source_location=self.source_location(source_distance_from_room_centre,
                                                                 source_azimuth_degrees))
-            print('True Azimuth: ' + str(true_azimuth))
+           # print('True Azimuth: ' + str(true_azimuth))
         if plot_impulse:
             self.plot_impulse(room.mic_array.signals[1, :], room.mic_array.signals[0, :])
         if write_wav:
